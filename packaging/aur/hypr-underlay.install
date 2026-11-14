@@ -1,0 +1,20 @@
+post_install() {
+  cat <<'NOTICE'
+Hypr Underlay includes the native plugin, controller and Omarchy companion.
+Nothing is auto-enabled. In your desktop session, as your normal user:
+  hypr-underlay companion-enable
+Default shortcut: Super+Alt+B. To disable and unregister before removal:
+  hypr-underlay companion-disable
+Native-only users can run: hypr-underlay off --if-active
+This build supports Hyprland 0.56.2 only. Rebuild after compatible ABI changes.
+Do not hold back Hyprland/system upgrades to retain this experimental plugin.
+NOTICE
+}
+
+post_upgrade() {
+  post_install
+}
+
+pre_remove() {
+  printf '%s\n' 'Restore backgrounds and disable/unregister the companion in each desktop session before removal.'
+}

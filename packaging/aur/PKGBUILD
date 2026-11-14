@@ -1,0 +1,45 @@
+# Local Arch package recipe; no AUR publication is required.
+# Build dependencies supplied by base-devel (make, gcc, pkgconf) are assumed.
+pkgname=hypr-underlay-git
+pkgver=0.3.0.r0.g0000000
+pkgrel=1
+pkgdesc='Render application windows behind tiled windows, with an optional Omarchy companion'
+arch=('x86_64')
+url='https://github.com/pastleo/hypr-underlay'
+license=('MIT')
+depends=('hyprland=0.56.2' 'gcc-libs' 'glibc' 'python')
+makedepends=('git')
+checkdepends=('lua')
+optdepends=(
+  'omarchy>=4.5.0: optional Omarchy shell companion and shortcut management'
+  'quickshell: optional Omarchy companion runtime'
+  'libnotify: desktop error notifications'
+)
+provides=('hypr-underlay')
+conflicts=('hypr-underlay')
+options=('!debug')
+install=hypr-underlay.install
+source=("hypr-underlay::git+${url}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/hypr-underlay"
+  printf '0.3.0.r%s.g%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
+
+build() {
+  cd "$srcdir/hypr-underlay"
+  make
+}
+
+check() {
+  cd "$srcdir/hypr-underlay"
+  make check
+}
+
+package() {
+  cd "$srcdir/hypr-underlay"
+  make DESTDIR="$pkgdir" PREFIX=/usr install
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/hypr-underlay/LICENSE"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/hypr-underlay/README.md"
+}

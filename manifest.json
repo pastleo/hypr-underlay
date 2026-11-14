@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "pastleo.hypr-underlay",
+  "name": "Hypr Underlay",
+  "version": "0.3.0",
+  "author": "pastleo",
+  "description": "Toggle the focused application as a desktop background using the optional native Hyprland plugin",
+  "kinds": ["service"],
+  "entryPoints": { "service": "omarchy/Underlay.qml" }
+}
