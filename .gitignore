@@ -4,3 +4,4 @@ AGENTS.local.md
 /packaging/aur/src/
 /packaging/aur/pkg/
 /packaging/aur/*.pkg.tar.*
+packaging/aur/hypr-underlay
